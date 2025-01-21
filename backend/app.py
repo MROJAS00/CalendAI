@@ -25,8 +25,8 @@ def find_available_slots(events, min_gap_minutes=30, start_hour=8, end_hour=18):
             next_event_start_time = timedelta(hours=next_event_start.hour, minutes=next_event_start.minute)
             if current_event_end_time >= daytime_start and next_event_start_time <= daytime_end:
                 available_slots.append({
-                    "start": current_event_end,
-                    "end": next_event_start
+                    "start": current_event_end.isoformat(),  # Convert Arrow object to string
+                    "end": next_event_start.isoformat()     # Convert Arrow object to string
                 })
     return available_slots
 
@@ -34,8 +34,8 @@ def find_available_slots(events, min_gap_minutes=30, start_hour=8, end_hour=18):
 def event_to_dict(event):
     return {
         "name": event.name,
-        "begin": event.begin.isoformat(),
-        "end": event.end.isoformat(),
+        "begin": event.begin.isoformat(),  # Convert Arrow object to string
+        "end": event.end.isoformat(),      # Convert Arrow object to string
         "location": event.location,
         "description": event.description
     }
